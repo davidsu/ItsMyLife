@@ -1,0 +1,5 @@
+define({
+    pubsubEvents:{
+        PDF: 'pdf'
+    }
+});

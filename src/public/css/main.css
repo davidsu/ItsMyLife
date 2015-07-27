@@ -1,0 +1,13 @@
+@import 'divTbl.css';
+@import 'layouts/cart_popup.css';
+@import 'themes/cart_popup.css';
+@import 'generics.css';
+
+#bring-criancas-list{
+    margin:10px auto;
+    min-width: 100px;
+}
+
+button{
+    font-size:1.5rem;
+}
