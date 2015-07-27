@@ -1,21 +1,12 @@
-define(['_', 'publishers', 'consts', '/'+'./Row'], function (_, publishers, consts, Row) {
-
-    var Headers = React.createClass({
-        render: function () {
-            return (<div className='heading'>
-                    {
-                        this.props.HEADERS.map(function (header) {
-                                var className = 'cell ' + header;
-                                return (<div className={className} key={header}>
-                                    {header}
-                                </div>)
-                            }
-                        )
-                    }
-                </div>
-            );
-        }
-    });
+define(
+    [
+        '_',
+        'publishers',
+        'consts',
+        '/'+'./Row',
+        '/'+'./Headers'
+    ],
+    function (_, publishers, consts, Row, Headers) {
 
     var Table = React.createClass({
         getDefaultProps: function () {

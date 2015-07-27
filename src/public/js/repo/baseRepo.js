@@ -14,7 +14,23 @@ define(function(){
         request.send();
     }
 
+    function getFilesPath(callback){
+        var request = new XMLHttpRequest();
+        request.open('GET', '/filesPath');
+        request.onload = function () {
+            var error;
+            if (request.status < 200 || request.status >= 400) {
+                error = {requestStatus: request.status};
+            }
+
+
+            callback(error, request.responseText);
+        };
+        request.send();
+    }
+
     return{
-        getCriancasList: getCriancasList
+        getCriancasList: getCriancasList,
+        getFilesPath: getFilesPath
     }
 });

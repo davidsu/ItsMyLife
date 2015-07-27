@@ -1,21 +1,12 @@
-define(['_', 'publishers', 'consts', '/'+'./Row'], function (_, publishers, consts, Row) {
-
-    var Headers = React.createClass({displayName: "Headers",
-        render: function () {
-            return (React.createElement("div", {className: "heading"}, 
-                    
-                        this.props.HEADERS.map(function (header) {
-                                var className = 'cell ' + header;
-                                return (React.createElement("div", {className: className, key: header}, 
-                                    header
-                                ))
-                            }
-                        )
-                    
-                )
-            );
-        }
-    });
+define(
+    [
+        '_',
+        'publishers',
+        'consts',
+        '/'+'./Row',
+        '/'+'./Headers'
+    ],
+    function (_, publishers, consts, Row, Headers) {
 
     var Table = React.createClass({displayName: "Table",
         getDefaultProps: function () {
@@ -32,7 +23,6 @@ define(['_', 'publishers', 'consts', '/'+'./Row'], function (_, publishers, cons
             publishers.criancas.unsubscribe(this.itemsReceived);
         },
         componentWillMount: function () {
-            //this.itemsReceived = this.itemsReceived.bind(this);
             publishers.criancas.subscribe(this.itemsReceived);
         },
         itemsReceived: function (newItems) {
