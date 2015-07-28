@@ -1,11 +1,13 @@
 'use strict';
 // Require our dependencies
-var express = require('express'),
+var
+    express = require('express'),
     http = require('http'),
 
     bodyParser = require('body-parser'),
     mongoose = require('mongoose'),
-    Criancas = require('./models/Criancas.js');
+    Criancas = require('./models/Criancas.js'),
+    receiptDir = require('./utils/receiptDir.js');
 
 // Create an express instance and set a port variable
 var app = express();
@@ -28,6 +30,13 @@ app.route('/criancas/:id')
 app.route('/criancas')
     .get(Criancas.list)
     .post(Criancas.create);
+
+app.route('/filesPath')
+    .get(function (req, res) {
+        receiptDir.getFilesPaths(function (list) {
+            res.json(list);
+        });
+    });
 
 var server = http.createServer(app).listen(port, function () {
     console.log('Express server listening on port ' + port);
