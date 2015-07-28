@@ -1,7 +1,7 @@
-define(['_', 'baseRepo', 'consts', '/' + '../lib/react-typeahead'], function (_, baseRepo, consts, ReactTypeahead) {
+define(['_', 'baseRepo', 'consts'], function (_, baseRepo, consts) {
 
 
-    var AutoComplete = React.createClass({displayName: "AutoComplete",
+    var AutoComplete = React.createClass({
         getInitialState: function () {
             return {
                 typedLength: 1000,
@@ -12,28 +12,22 @@ define(['_', 'baseRepo', 'consts', '/' + '../lib/react-typeahead'], function (_,
             };
         },
         componentDidUpdate: function () {
-            //React.findDOMNode(this.refs.input)
-            //    .setSelectionRange(
-            //    this.state.typedLength,
-            //    this.state.value.length
-            //);
+            React.findDOMNode(this.refs.input)
+                .setSelectionRange(
+                this.state.typedLength,
+                this.state.value.length
+            );
         },
         render: function () {
-            return (React.createElement(ReactTypeahead.Typeahead, {
-                options: this.state.filesList, 
-                allowCustomValues: 4, 
-                defaultValue: "", 
-                className: "topcoat-list", 
-                maxVisible: 3, 
-                customClasses: {
-          input: "topcoat-text-input",
-          results: "topcoat-list__container",
-          listItem: "topcoat-list__item",
-          hover: "topcoat-active",
-          customAdd: "topcoat-addme"
-        }
-                }));
+            return (<input ref='input'
+                           className='autoCompleteInput'
+                           value={this.state.value}
+                           onChange={this._onChange}
+                           onKeyDown={this._onKeyDown}
+                key={1}>
+            </input>);
         },
+        helperProps:{},
         _onChange: function (e) {
             var newValue = e.target.value,
                 newTypedLength = 1000,
@@ -45,7 +39,19 @@ define(['_', 'baseRepo', 'consts', '/' + '../lib/react-typeahead'], function (_,
                         }
                     );
 
-            if (newFilteredFilesList.length > 0 && !this.state.isDeleting) {
+            if (this.helperProps.isDeleting) {
+                //TODO fix newValue to delete selection
+                var selectionStart = this.helperProps.selectionStart,
+                    selectionEnd = this.helperProps.selectionEnd;
+                if (selectionStart < selectionEnd) {
+                    newValue = (_.filter(this.state.value.split(''), function(val, index){
+                        return index<selectionStart || index>selectionEnd;
+                    })).join('');
+
+                    console.log(newValue);
+
+                }
+            } else if (newFilteredFilesList.length > 0) {
                 newTypedLength = newValue.length;
                 newValue = newFilteredFilesList[0];
             }
@@ -58,20 +64,20 @@ define(['_', 'baseRepo', 'consts', '/' + '../lib/react-typeahead'], function (_,
 
         },
         _onKeyDown: function (e) {
-            var newState = {isDeleting: false};
+            this.helperProps.isDeleting = false;
+            this.helperProps.selectionStart = React.findDOMNode(this.refs.input).selectionStart;
+            this.helperProps.selectionEnd = React.findDOMNode(this.refs.input).selectionEnd;
             switch (e.keyCode) {
                 case consts.eventKeys.BACKSPACE:
                 case consts.eventKeys.DELETE:
-                    newState.isDeleting = true;
+                    this.helperProps.isDeleting = true;
                     break;
                 case consts.eventKeys.ENTER:
-                    newState.typedLength = 1000;
-                    break;
                 case consts.eventKeys.RIGHT_ARROW:
-                    newState.typedLength = this.state.typedLength + 1;
+                    if(this.helperProps.selectionStart<this.helperProps.selectionEnd)
+                    this.setState({typedLength : 1000});
                     break;
             }
-            this.setState(newState);
         },
         _filesPathReceived: function (error, json) {
             if (error) {

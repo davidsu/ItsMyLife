@@ -1,4 +1,4 @@
-define(['_', 'baseRepo', 'consts'], function (_, baseRepo, consts) {
+define(['_', 'baseRepo', 'consts', '/' + '../lib/react-typeahead'], function (_, baseRepo, consts, ReactTypeahead) {
 
 
     var AutoComplete = React.createClass({
@@ -12,53 +12,66 @@ define(['_', 'baseRepo', 'consts'], function (_, baseRepo, consts) {
             };
         },
         componentDidUpdate: function () {
-            React.findDOMNode(this.refs.input)
-                .setSelectionRange(
-                this.state.typedLength,
-                this.state.value.length
-            );
+            //React.findDOMNode(this.refs.input)
+            //    .setSelectionRange(
+            //    this.state.typedLength,
+            //    this.state.value.length
+            //);
         },
         render: function () {
-            return (<input ref='input'
-                           className='autoCompleteInput'
-                           value={this.state.value}
-                           onChange={this._onChange}
-                           onKeyDown={this._onKeyDown}>
-            </input>);
+            return (<ReactTypeahead.Typeahead
+                options={this.state.filesList}
+                allowCustomValues={4}
+                defaultValue=""
+                className="topcoat-list"
+                maxVisible={3}
+                customClasses={{
+          input: "topcoat-text-input",
+          results: "topcoat-list__container",
+          listItem: "topcoat-list__item",
+          hover: "topcoat-active",
+          customAdd: "topcoat-addme"
+        }}
+                ></ReactTypeahead.Typeahead>);
         },
         _onChange: function (e) {
             var newValue = e.target.value,
                 newTypedLength = 1000,
                 newFilteredFilesList =
-                _.filter(
-                    this.state.filesList,
-                    function(item){
-                        return item.indexOf(newValue) === 0;
-                    }
-                );
+                    _.filter(
+                        this.state.filesList,
+                        function (item) {
+                            return item.indexOf(newValue) === 0;
+                        }
+                    );
 
-            if(newFilteredFilesList.length > 0 && !this.state.isDeleting){
+            if (newFilteredFilesList.length > 0 && !this.state.isDeleting) {
                 newTypedLength = newValue.length;
                 newValue = newFilteredFilesList[0];
             }
 
             this.setState({
-                typedLength:newTypedLength,
-                filteredFilesList:newFilteredFilesList,
-                value:newValue
+                typedLength: newTypedLength,
+                filteredFilesList: newFilteredFilesList,
+                value: newValue
             });
 
         },
         _onKeyDown: function (e) {
-            var key = e.keyCode;
-            this.setState(
-                {
-                    isDeleting: (
-                        key === consts.eventKeys.BACKSPACE ||
-                        key === consts.eventKeys.DELETE
-                    )
-                }
-            );
+            var newState = {isDeleting: false};
+            switch (e.keyCode) {
+                case consts.eventKeys.BACKSPACE:
+                case consts.eventKeys.DELETE:
+                    newState.isDeleting = true;
+                    break;
+                case consts.eventKeys.ENTER:
+                    newState.typedLength = 1000;
+                    break;
+                case consts.eventKeys.RIGHT_ARROW:
+                    newState.typedLength = this.state.typedLength + 1;
+                    break;
+            }
+            this.setState(newState);
         },
         _filesPathReceived: function (error, json) {
             if (error) {

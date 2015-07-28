@@ -8,7 +8,9 @@ require.config({
         pubsub: 'pubsub/pubsub',
         publishers: 'pubsub/publishers',
         baseRepo: 'repo/baseRepo',
-        consts: 'consts'
+        consts: 'consts',
+        AutoComplete: 'reactBuilt/AutoComplete',
+        _AutoComplete: 'reactBuilt/_AutoComplete'
     }
 });
 
