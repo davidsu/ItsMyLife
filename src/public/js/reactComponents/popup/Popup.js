@@ -1,22 +1,12 @@
 define(['publishers', 'consts'], function (publishers, consts) {
-    var Popup = React.createClass({
 
-            getInitialState: function () {
-                return {
-                    src: ''
-                };
-            },
-            componentWillMount: function () {
-                publishers.popup.subscribe( this.srcReceived, consts.pubsubEvents.PDF);
-            },
-            componentWillUnmount: function () {
-                publishers.popup.unsubscribe(this.srcReceived, consts.pubsubEvents.PDF);
-            },
-            srcReceived: function (newSrc) {
-                this.setState({src: newSrc})
+    var Popup = React.createClass({
+            propTypes:{
+                //TODO
+                //src: React.type.string
             },
             getSrc: function () {
-                return '/criancas/' + this.state.src;
+                return '/criancas/' + this.props.src;
             },
             getClassName: function () {
                 var className = 'popup-cart';
@@ -26,15 +16,10 @@ define(['publishers', 'consts'], function (publishers, consts) {
                 return className;
             },
             close: function () {
-                this.setState({src: ''});
+                publishers.popup.publish('', consts.pubsubEvents.PDF);
             },
             render: function () {
-                if (!this.state.src) {
-                    return <div />;
-                }
                 return (
-
-                    //<div className={this.getClassName()}>
                     <div id="popup-cart-container">
                         <button
                             onClick={this.close}>close
@@ -44,8 +29,6 @@ define(['publishers', 'consts'], function (publishers, consts) {
                             type="application/pdf"></embed>
                     </div>);
             }
-
-            //</div>
 
         })
         ;

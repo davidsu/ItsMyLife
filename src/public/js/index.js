@@ -1,7 +1,8 @@
 require.config({
     baseUrl:'js/',
     paths:{
-        criancasTbl: 'reactBuilt/Criancas/tbl',
+        mainStore: 'stores/mainStore',
+        criancasTbl: 'reactBuilt/Criancas/Table',
         _: 'lib/lodash',
         main: 'reactBuilt/main/main',
         Popup: 'reactBuilt/popup/Popup',
@@ -14,6 +15,7 @@ require.config({
     }
 });
 
-require(['main'], function (main) {
-    main();
+require(['main', 'pubsub'], function (renderRoot, pubsub) {
+    pubsub.setAfterPublishCallback(renderRoot);
+    renderRoot();
 });

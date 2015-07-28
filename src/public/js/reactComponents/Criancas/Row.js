@@ -1,4 +1,4 @@
-define(['/'+'./cellFactory'], function(cellFactory){
+define(['CriCellFactory'], function(cellFactory){
     var Row = React.createClass({
         getClassName: function () {
             return 'row ';
@@ -14,4 +14,5 @@ define(['/'+'./cellFactory'], function(cellFactory){
             </div>);
         }
     });
+    return Row;
 });

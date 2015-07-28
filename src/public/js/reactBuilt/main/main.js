@@ -1,27 +1,41 @@
-define(['Popup', 'criancasTbl', 'publishers'], function (Popup, CriancasTbl, publishers) {
-    var Main = React.createClass({displayName: "Main",
-        criancasClick: function () {
-            publishers.criancas.list();
-
-        },
-        render: function () {
-            return (
-                React.createElement("div", null, 
-                    React.createElement(Popup, null), 
+define(
+    [
+        'Popup',
+        'criancasTbl',
+        'publishers',
+        'mainStore'
+    ],
+    function (Popup, CriancasTbl, publishers, mainStore) {
+        var Main = React.createClass({displayName: "Main",
+            contentFactory: function () {
+                if(mainStore.popup.pdfSrc){
+                    return React.createElement(Popup, {src: mainStore.popup.pdfSrc});
+                }
+                return(
                     React.createElement("main", {className: "container"}, 
                         React.createElement("div", {className: "mainNavigation"}, 
                             React.createElement("button", {onClick: this.criancasClick}, "Fetch")
                         ), 
-                        React.createElement(CriancasTbl, null)
+                        React.createElement(CriancasTbl, {items: mainStore.criancas.list})
+                    )
+                );
+
+            },
+            criancasClick: function () {
+                publishers.criancas.list();
+            },
+            render: function () {
+                return (
+                    React.createElement("div", null, 
+                        this.contentFactory()
                     )
                 )
-            )
+            }
+        });
+
+        function reRender() {
+            React.render(React.createElement(Main, null), document.querySelector('.container'));
         }
+
+        return reRender;
     });
-
-    function reRender() {
-        React.render(React.createElement(Main, null), document.body);
-    }
-
-    return reRender;
-});
