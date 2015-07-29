@@ -6,6 +6,7 @@ require.config({
         CriCellFactory: '/js/reactBuilt/Criancas/'+'cellFactory'
     }
 });
+
 define(
     [
         '_',
