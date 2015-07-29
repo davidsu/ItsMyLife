@@ -4,6 +4,7 @@ define(
         'criancasTbl',
         'publishers',
         'mainStore'
+
     ],
     function (Popup, CriancasTbl, publishers, mainStore) {
         var Main = React.createClass({

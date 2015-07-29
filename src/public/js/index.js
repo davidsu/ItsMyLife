@@ -10,12 +10,12 @@ require.config({
         publishers: 'pubsub/publishers',
         baseRepo: 'repo/baseRepo',
         consts: 'consts',
-        AutoComplete: 'reactBuilt/AutoComplete',
-        _AutoComplete: 'reactBuilt/_AutoComplete'
+        AutoComplete: 'reactBuilt/AutoComplete'
     }
 });
 
 require(['main', 'pubsub'], function (renderRoot, pubsub) {
+    //renderRoot(pubsub.setAfterPublishCallback);
     pubsub.setAfterPublishCallback(renderRoot);
     renderRoot();
 });

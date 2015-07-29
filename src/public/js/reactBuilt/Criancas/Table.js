@@ -1,11 +1,12 @@
 require.config({
     paths:{
-        CriRow: '/js/reactBuilt/Criancas/Row',
-        CriCell: '/js/reactBuilt/Criancas/Cell',
-        CriHeaders: '/js/reactBuilt/Criancas/Headers',
-        CriCellFactory: '/js/reactBuilt/Criancas/cellFactory'
+        CriRow: '/js/reactBuilt/Criancas/'+'Row',
+        CriCell: '/js/reactBuilt/Criancas/'+'Cell',
+        CriHeaders: '/js/reactBuilt/Criancas/'+'Headers',
+        CriCellFactory: '/js/reactBuilt/Criancas/'+'cellFactory'
     }
 });
+
 define(
     [
         '_',

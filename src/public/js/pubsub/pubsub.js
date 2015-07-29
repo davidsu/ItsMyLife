@@ -1,5 +1,18 @@
 define(function () {
     var afterPublish;
+    var isHandlingEvent = false;
+    function publishStarted(){
+        var wasHandlingEvent = isHandlingEvent;
+        isHandlingEvent = true;
+        return wasHandlingEvent;
+    }
+
+    function publishEnded(wasHandlingEvent){
+        if (!wasHandlingEvent && afterPublish) {
+            isHandlingEvent = false;
+            afterPublish();
+        }
+    }
     var publisher = {
         subscriber: {
             any: []
@@ -12,13 +25,13 @@ define(function () {
             this.subscribers[type].push(fn);
         },
         unsubscribe: function (fn, type) {
+            var startState = publishStarted();
             this.visitSubscribers('unsubscribe', fn, type);
+            publishEnded(startState);
         },
         publish: function (publication, type) {
             this.visitSubscribers('publish', publication, type);
-            if (afterPublish) {
-                afterPublish();
-            }
+
         },
         visitSubscribers: function (action, arg, type) {
             var pubtype = type || 'any',
