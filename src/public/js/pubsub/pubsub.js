@@ -25,12 +25,12 @@ define(function () {
             this.subscribers[type].push(fn);
         },
         unsubscribe: function (fn, type) {
-            var startState = publishStarted();
             this.visitSubscribers('unsubscribe', fn, type);
-            publishEnded(startState);
         },
         publish: function (publication, type) {
+            var startState = publishStarted();
             this.visitSubscribers('publish', publication, type);
+            publishEnded(startState);
 
         },
         visitSubscribers: function (action, arg, type) {
