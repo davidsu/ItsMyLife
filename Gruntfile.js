@@ -18,10 +18,38 @@ module.exports = function (grunt) {
                     }
                 ]
             }
-        }
+        },
+        monitor:{
+            default:{
+                options:{
+                    script: 'src/server.js',
+                    timeout: 2,
+                    ignoreLogs: 0,
+                    logsPerConnect: 1,
+                    nodes: 1,
+                    environmentVariables: '', //ie 'ENVIRONMENT=production',
+                    nodeArgs: '', //ie '--harmony --debug'
+                    scriptArgs: ''
+                }
+            }
+        },
+        watch: {
+            dev: {
+                files: [
+                    'src/public/js/reactComponents/**/*.js'
+                ],
+                tasks: ['fire'],
+                options: {
+                    debounceDelay: 500
+                }
+            }
+        },
     });
     grunt.loadNpmTasks('grunt-eslint');
     grunt.loadNpmTasks('grunt-react');
+    grunt.loadNpmTasks('grunt-contrib-watch');
+    grunt.loadNpmTasks('grunt-server-monitor');
 
     grunt.registerTask('build', ['react', 'eslint']);
+    grunt.registerTask('fire', ['react', 'monitor']);
 };
