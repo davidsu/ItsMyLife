@@ -1,4 +1,4 @@
-define(['CriCell', 'publishers', 'consts'], function(Cell, publishers, consts){
+define(['Cell', 'publishers', 'consts'], function(Cell, publishers, consts){
     return function (item, columnName) {
         var key = item._id + columnName;
         if (columnName === 'receipt') {
