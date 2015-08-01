@@ -52,10 +52,11 @@ define(function () {
         var i;
         for (i in publisher) {
             if (publisher.hasOwnProperty(i) && typeof publisher[i] === 'function') {
-                o[i] = publisher[i];
+                o[i] = publisher[i].bind(o);
             }
         }
         o.subscribers = {any: []};
+        return o;
     }
 
     return {

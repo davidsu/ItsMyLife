@@ -3,10 +3,11 @@ define(
         'Popup',
         'criancasTbl',
         'publishers',
-        'mainStore'
+        'mainStore',
+        'react'
 
     ],
-    function (Popup, CriancasTbl, publishers, mainStore) {
+    function (Popup, CriancasTbl, publishers, mainStore, React) {
         var Main = React.createClass({displayName: "Main",
             contentFactory: function () {
                 if(mainStore.popup.pdfSrc){

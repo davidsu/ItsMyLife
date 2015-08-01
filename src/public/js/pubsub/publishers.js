@@ -5,7 +5,7 @@ define(
         'consts'
     ],
     function (baseRepo, pubsub, consts) {
-        var criancas = {
+        var criancas = pubsub.makePublisher({
             list: function () {
                 baseRepo.getCriancasList(function (error, json) {
                     if (error) {
@@ -15,17 +15,15 @@ define(
                     }
                 }.bind(this))
             }
-        };
+        });
 
 
-        var popup = {
+        var popup = pubsub.makePublisher({
             pdf: function (srcPath) {
                this.publish(srcPath, consts.pubsubEvents.PDF);
             }
-        };
+        });
 
-        pubsub.makePublisher(criancas);
-        pubsub.makePublisher(popup);
         return {
             criancas: criancas,
             popup: popup

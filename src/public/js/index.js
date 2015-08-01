@@ -2,7 +2,9 @@ require.config({
     baseUrl:'js/',
     paths:{
         _: 'lib/lodash',
-        page: 'lib/page'
+        page: 'lib/page',
+        reactRouter: 'lib/ReactRouter',
+        react: 'lib/react'
     },
     map:{
         '*':{
@@ -14,7 +16,8 @@ require.config({
             baseRepo: 'repo/baseRepo',
             consts: 'consts',
             mainStore: 'stores/mainStore',
-            criancasTbl: 'reactBuilt/Criancas/Table'
+            criancasTbl: 'reactBuilt/Criancas/Table',
+            routing: 'pubsub/routing'
         },
         'reactBuilt/Criancas':{
             Row: 'reactBuilt/Criancas/Row',
@@ -25,9 +28,10 @@ require.config({
     }
 });
 
-require(['main', 'pubsub', 'page'], function (renderRoot, pubsub, page) {
+require(['main', 'pubsub', 'reactRouter', 'react'], function (renderRoot, pubsub, ReactRouter, React) {
     //renderRoot(pubsub.setAfterPublishCallback);
-    console.log(page);
+    //console.log(page);
     pubsub.setAfterPublishCallback(renderRoot);
+    //Router.run()
     renderRoot();
 });

@@ -1,4 +1,4 @@
-define([], function(){
+define(['react'], function(React){
     return React.createClass({
 
         getClassName: function () {

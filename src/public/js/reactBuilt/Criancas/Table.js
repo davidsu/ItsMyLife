@@ -4,9 +4,10 @@ define(
         'publishers',
         'consts',
         'Row',
-        'Headers'
+        'Headers',
+        'react'
     ],
-    function (_, publishers, consts, Row, Headers) {
+    function (_, publishers, consts, Row, Headers, React) {
 
     var Table = React.createClass({displayName: "Table",
         getDefaultProps: function () {

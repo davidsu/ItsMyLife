@@ -1,4 +1,4 @@
-define(['_', 'baseRepo', 'consts'], function (_, baseRepo, consts) {
+define(['_', 'baseRepo', 'consts', 'react'], function (_, baseRepo, consts, React) {
 
 
     var AutoComplete = React.createClass({

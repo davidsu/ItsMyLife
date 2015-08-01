@@ -1,4 +1,4 @@
-define(['CellFactory'], function(cellFactory){
+define(['CellFactory', 'react'], function(cellFactory, React){
     var Row = React.createClass({displayName: "Row",
         getClassName: function () {
             return 'row ';

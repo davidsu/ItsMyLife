@@ -1,4 +1,4 @@
-define(['publishers', 'consts'], function (publishers, consts) {
+define(['publishers', 'consts', 'react'], function (publishers, consts, React) {
 
     var Popup = React.createClass({displayName: "Popup",
             propTypes:{

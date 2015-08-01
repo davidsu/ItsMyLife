@@ -9,6 +9,7 @@ define({
         UP_ARROW: 38
     },
     pubsubEvents:{
-        PDF: 'pdf'
+        PDF: 'pdf',
+        REQUIRE_CRIANCAS_LIST: 'REQUIRE_CRIANCAS_LIST'
     }
 });
