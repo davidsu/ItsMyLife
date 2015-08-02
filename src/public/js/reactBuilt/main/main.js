@@ -1,30 +1,40 @@
 define(
     [
+        'pubsub',
         'Popup',
         'criancasTbl',
         'publishers',
         'mainStore',
-        'react'
+        'react',
+        'reactRouter'
 
     ],
-    function (Popup, CriancasTbl, publishers, mainStore, React) {
+    function (pubsub, Popup, CriancasTbl, publishers, mainStore, React, reactRouter) {
+        var RouteHandler = reactRouter.RouteHandler;
         var Main = React.createClass({displayName: "Main",
+            contextTypes: {
+                router: React.PropTypes.func.isRequired
+            },
+            componentWillMount: function(){
+                pubsub.setAfterPublishCallback(function(){
+                    this.forceUpdate();
+                }.bind(this));
+            },
             contentFactory: function () {
-                if(mainStore.popup.pdfSrc){
+                if (mainStore.popup.pdfSrc) {
                     return React.createElement(Popup, {src: mainStore.popup.pdfSrc});
                 }
-                return(
+                return (
                     React.createElement("main", {className: "container"}, 
-                        React.createElement("div", {className: "mainNavigation"}, 
-                            React.createElement("button", {onClick: this.criancasClick}, "Fetch")
+                        React.createElement("nav", {className: "navbar navbar-default"}, 
+                            React.createElement("ul", {className: "nav navbar-nav"}, 
+                                React.createElement("li", null, React.createElement("a", {href: "#/criancas"}, "Fetch"))
+                            )
                         ), 
-                        React.createElement(CriancasTbl, {items: mainStore.criancas.list})
+                        React.createElement(RouteHandler, React.__spread({},  this.props))
                     )
                 );
 
-            },
-            criancasClick: function () {
-                publishers.criancas.list();
             },
             render: function () {
                 return (
@@ -35,9 +45,6 @@ define(
             }
         });
 
-        function reRender() {
-            React.render(React.createElement(Main, null), document.querySelector('.container'));
-        }
 
-        return reRender;
+        return Main;
     });

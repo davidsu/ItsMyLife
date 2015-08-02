@@ -10,7 +10,6 @@ define(function () {
     function publishEnded(wasHandlingEvent){
         if (!wasHandlingEvent && afterPublish) {
             isHandlingEvent = false;
-            afterPublish();
         }
     }
     var publisher = {

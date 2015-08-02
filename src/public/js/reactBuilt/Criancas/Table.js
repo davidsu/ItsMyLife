@@ -5,24 +5,30 @@ define(
         'consts',
         'Row',
         'Headers',
-        'react'
+        'react',
+        'mainStore'
     ],
-    function (_, publishers, consts, Row, Headers, React) {
+    function (_, publishers, consts, Row, Headers, React, mainStore) {
 
     var Table = React.createClass({displayName: "Table",
+        contextTypes: {
+            router: React.PropTypes.func.isRequired
+        },
         getDefaultProps: function () {
             return {
                 HEADERS: ['receipt', 'payTo', 'children', 'numOfPayments', 'firstPayment', 'payMethod', 'payValue']
             };
         },
+        componentWillMount: function(){
+            publishers.criancas.list(function(){
+                this.forceUpdate()
+            }.bind(this));
+        },
         render: function () {
-            if (this.props.items.length === 0) {
-                return React.createElement("div", null);
-            }
-            return (React.createElement("div", {className: "table main"}, 
+            return (React.createElement("div", {className: "_table _main"}, 
                 React.createElement(Headers, {HEADERS: this.props.HEADERS}), 
                 _.map(
-                    this.props.items,
+                    mainStore.criancas.list,
                     function (item) {
 
                         return React.createElement(Row, {item: item, HEADERS: this.props.HEADERS, key: item._id})

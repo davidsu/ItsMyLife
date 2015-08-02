@@ -1,5 +1,5 @@
 
-.table {
+._table {
     display: table;
     max-width: 800px;
     width: 80%;
@@ -8,6 +8,8 @@
     margin: 1.5em auto 12rem;
     font-size: 1.5rem;
     position: relative;
+    border-radius: 10px 10px 0 0;
+
 }
 
 
@@ -17,20 +19,21 @@
     text-align: center;
 }
 
-.row {
+._row {
     display: table-row;
     position: relative;
 }
 
-.table.main .coupon .price{
+._table._main .coupon .price{
     border-width: 3px;
     border-style: solid;
 }
-.table.main .row:nth-child(2n){
-    background-color: #cbcbcb;
+._table._main ._row:nth-child(2n){
+    background-color: #e7e7e7;
 }
 
-.table.main .OutOfStockItem button{
+
+._table._main .OutOfStockItem button{
     visibility: hidden;
 }
 
@@ -42,7 +45,7 @@
     box-sizing: border-box;
 }
 
-.table.main .cell button{
+._table._main .cell button{
     margin-top: 30%;
 }
 

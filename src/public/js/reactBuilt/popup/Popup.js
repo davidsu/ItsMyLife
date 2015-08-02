@@ -1,12 +1,8 @@
 define(['publishers', 'consts', 'react'], function (publishers, consts, React) {
 
     var Popup = React.createClass({displayName: "Popup",
-            propTypes:{
-                //TODO
-                //src: React.type.string
-            },
-            getSrc: function () {
-                return '/criancas/' + this.props.src;
+            contextTypes: {
+                router: React.PropTypes.func.isRequired
             },
             getClassName: function () {
                 var className = 'popup-cart';
@@ -15,17 +11,11 @@ define(['publishers', 'consts', 'react'], function (publishers, consts, React) {
                 }
                 return className;
             },
-            close: function () {
-                publishers.popup.publish('', consts.pubsubEvents.PDF);
-            },
             render: function () {
                 return (
                     React.createElement("div", {id: "popup-cart-container"}, 
-                        React.createElement("button", {
-                            onClick: this.close}, "close"
-                        ), 
                         React.createElement("embed", {
-                            src: this.getSrc(), 
+                            src: this.props.path, 
                             type: "application/pdf"})
                     ));
             }

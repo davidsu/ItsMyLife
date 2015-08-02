@@ -38,9 +38,9 @@ module.exports = function (grunt) {
                 files: [
                     {
                         expand: true,
-                        cwd: 'src/',
-                        src: ['**/*.js', '!js/lib/**/*.js'],
-                        dest: 'build/',
+                        cwd: 'src/public/js/reactComponents',
+                        src: ['**/*.js'],
+                        dest: 'src/public/js/reactBuilt',
                         ext: '.js'
                     }
                 ]

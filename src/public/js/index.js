@@ -17,7 +17,7 @@ require.config({
             consts: 'consts',
             mainStore: 'stores/mainStore',
             criancasTbl: 'reactBuilt/Criancas/Table',
-            routing: 'pubsub/routing'
+            routes: 'reactBuilt/config/routes'
         },
         'reactBuilt/Criancas':{
             Row: 'reactBuilt/Criancas/Row',
@@ -28,10 +28,9 @@ require.config({
     }
 });
 
-require(['main', 'pubsub', 'reactRouter', 'react'], function (renderRoot, pubsub, ReactRouter, React) {
+require(['main', 'pubsub', 'reactRouter', 'react', 'routes'], function (renderRoot, pubsub, Router, React, routes) {
     //renderRoot(pubsub.setAfterPublishCallback);
     //console.log(page);
-    pubsub.setAfterPublishCallback(renderRoot);
-    //Router.run()
-    renderRoot();
+    //pubsub.setAfterPublishCallback(renderRoot);
+    routes();
 });

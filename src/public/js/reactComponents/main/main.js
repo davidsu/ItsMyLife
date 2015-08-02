@@ -1,30 +1,40 @@
 define(
     [
+        'pubsub',
         'Popup',
         'criancasTbl',
         'publishers',
         'mainStore',
-        'react'
+        'react',
+        'reactRouter'
 
     ],
-    function (Popup, CriancasTbl, publishers, mainStore, React) {
+    function (pubsub, Popup, CriancasTbl, publishers, mainStore, React, reactRouter) {
+        var RouteHandler = reactRouter.RouteHandler;
         var Main = React.createClass({
+            contextTypes: {
+                router: React.PropTypes.func.isRequired
+            },
+            componentWillMount: function(){
+                pubsub.setAfterPublishCallback(function(){
+                    this.forceUpdate();
+                }.bind(this));
+            },
             contentFactory: function () {
-                if(mainStore.popup.pdfSrc){
-                    return <Popup src={mainStore.popup.pdfSrc} />;
+                if (mainStore.popup.pdfSrc) {
+                    return <Popup src={mainStore.popup.pdfSrc}/>;
                 }
-                return(
+                return (
                     <main className='container'>
-                        <div className='mainNavigation'>
-                            <button onClick={this.criancasClick}>Fetch</button>
-                        </div>
-                        <CriancasTbl items={mainStore.criancas.list}/>
+                        <nav  className='navbar navbar-default'>
+                            <ul className='nav navbar-nav'>
+                                <li><a href='#/criancas'>Fetch</a></li>
+                            </ul>
+                        </nav>
+                        <RouteHandler {...this.props} />
                     </main>
                 );
 
-            },
-            criancasClick: function () {
-                publishers.criancas.list();
             },
             render: function () {
                 return (
@@ -35,9 +45,6 @@ define(
             }
         });
 
-        function reRender() {
-            React.render(<Main />, document.querySelector('.container'));
-        }
 
-        return reRender;
+        return Main;
     });
