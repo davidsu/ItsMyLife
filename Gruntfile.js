@@ -24,7 +24,7 @@ module.exports = function (grunt) {
                 files: [
                     'src/public/js/reactComponents/**/*.js'
                 ],
-                tasks: ['react'],
+                tasks: ['babel'],
                 options: {
                     debounceDelay: 500
                 }

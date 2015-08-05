@@ -1,8 +1,11 @@
+'use strict';
+
 define(['_', 'baseRepo', 'consts', 'react'], function (_, baseRepo, consts, React) {
 
+    var AutoComplete = React.createClass({
+        displayName: 'AutoComplete',
 
-    var AutoComplete = React.createClass({displayName: "AutoComplete",
-        getInitialState: function () {
+        getInitialState: function getInitialState() {
             return {
                 typedLength: 1000,
                 value: '',
@@ -11,45 +14,35 @@ define(['_', 'baseRepo', 'consts', 'react'], function (_, baseRepo, consts, Reac
                 isDeleting: false
             };
         },
-        componentDidUpdate: function () {
-            React.findDOMNode(this.refs.input)
-                .setSelectionRange(
-                this.state.typedLength,
-                this.state.value.length
-            );
+        componentDidUpdate: function componentDidUpdate() {
+            React.findDOMNode(this.refs.input).setSelectionRange(this.state.typedLength, this.state.value.length);
         },
-        render: function () {
-            return (React.createElement("input", {ref: "input", 
-                           className: "autoCompleteInput", 
-                           value: this.state.value, 
-                           onChange: this._onChange, 
-                           onKeyDown: this._onKeyDown, 
-                           key: 1}
-            ));
+        render: function render() {
+            return React.createElement('input', { ref: 'input',
+                className: 'autoCompleteInput',
+                value: this.state.value,
+                onChange: this._onChange,
+                onKeyDown: this._onKeyDown,
+                key: 1 });
         },
-        helperProps:{},
-        _onChange: function (e) {
+        helperProps: {},
+        _onChange: function _onChange(e) {
             var newValue = e.target.value,
                 newTypedLength = 1000,
-                newFilteredFilesList =
-                    _.filter(
-                        this.state.filesList,
-                        function (item) {
-                            return item.indexOf(newValue) === 0;
-                        }
-                    );
+                newFilteredFilesList = _.filter(this.state.filesList, function (item) {
+                return item.indexOf(newValue) === 0;
+            });
 
             if (this.helperProps.isDeleting) {
                 //TODO fix newValue to delete selection
                 var selectionStart = this.helperProps.selectionStart,
                     selectionEnd = this.helperProps.selectionEnd;
                 if (selectionStart < selectionEnd) {
-                    newValue = (_.filter(this.state.value.split(''), function(val, index){
-                        return index<selectionStart || index>=selectionEnd;
-                    })).join('');
+                    newValue = _.filter(this.state.value.split(''), function (val, index) {
+                        return index < selectionStart || index >= selectionEnd;
+                    }).join('');
 
                     console.log(newValue);
-
                 }
             } else if (newFilteredFilesList.length > 0) {
                 newTypedLength = newValue.length;
@@ -61,9 +54,8 @@ define(['_', 'baseRepo', 'consts', 'react'], function (_, baseRepo, consts, Reac
                 filteredFilesList: newFilteredFilesList,
                 value: newValue
             });
-
         },
-        _onKeyDown: function (e) {
+        _onKeyDown: function _onKeyDown(e) {
             this.helperProps.isDeleting = false;
             this.helperProps.selectionStart = React.findDOMNode(this.refs.input).selectionStart;
             this.helperProps.selectionEnd = React.findDOMNode(this.refs.input).selectionEnd;
@@ -74,22 +66,19 @@ define(['_', 'baseRepo', 'consts', 'react'], function (_, baseRepo, consts, Reac
                     break;
                 case consts.eventKeys.ENTER:
                 case consts.eventKeys.RIGHT_ARROW:
-                    if(this.helperProps.selectionStart<this.helperProps.selectionEnd)
-                        this.setState({typedLength : 1000});
+                    if (this.helperProps.selectionStart < this.helperProps.selectionEnd) this.setState({ typedLength: 1000 });
                     break;
             }
         },
-        _filesPathReceived: function (error, json) {
+        _filesPathReceived: function _filesPathReceived(error, json) {
             if (error) {
                 console.log(error);
             } else {
                 var filesList = JSON.parse(json);
-                this.setState(
-                    {
-                        filesList: filesList,
-                        filteredFilesList: filesList
-                    }
-                );
+                this.setState({
+                    filesList: filesList,
+                    filteredFilesList: filesList
+                });
             }
         }
     });

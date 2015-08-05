@@ -1,7 +1,8 @@
 
 #popup-cart-container{
-    min-width: 100%;
+    width: 80%;
     min-height: 70%;
+
 }
 #popup-cart-container button{
     position: absolute;
@@ -9,11 +10,10 @@
 }
 
 embed{
-    width: 100%;
+    width: 90%;
     height: 100%;
     z-index: 3;
-
-    position:fixed;
+    margin:0 auto;
 }
 
 #close-popup-cart{

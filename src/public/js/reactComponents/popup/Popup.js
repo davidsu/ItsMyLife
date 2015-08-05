@@ -14,9 +14,16 @@ define(['publishers', 'consts', 'react'], function (publishers, consts, React) {
             render: function () {
                 return (
                     <div id="popup-cart-container">
+                        <div style={{
+                            position:'fixed',
+                            width:'100%',
+                            height:'90%',
+                            display:'flex'
+                        }}>
                         <embed
                             src={this.props.path}
                             type="application/pdf"></embed>
+                            </div>
                     </div>);
             }
 

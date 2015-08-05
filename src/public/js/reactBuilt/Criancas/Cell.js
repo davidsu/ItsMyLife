@@ -1,11 +1,17 @@
-define(['react'], function(React){
+'use strict';
+
+define(['react'], function (React) {
     return React.createClass({
 
-        getClassName: function () {
+        getClassName: function getClassName() {
             return 'cell ' + this.props.columnName;
         },
-        render: function () {
-            return (React.createElement("div", {className: this.getClassName()}, this.props.children));
+        render: function render() {
+            return React.createElement(
+                'div',
+                { className: this.getClassName() },
+                this.props.children
+            );
         }
     });
 });
