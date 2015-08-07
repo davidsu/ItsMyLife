@@ -12,10 +12,13 @@ define(['CellFactory', 'react'], function (cellFactory, React) {
         },
         render: function render() {
             return React.createElement(
-                'div',
-                { className: this.getClassName() },
+                'tr',
+                { className: this.getClassName(), onClick: this.clicked },
                 this.props.HEADERS.map(_.curry(cellFactory)(this.props.item, this.context.router, 'popup'))
             );
+        },
+        clicked: function clicked() {
+            this.context.router.transitionTo('/criancas/' + this.props.item._id.toString(), { prefix: 'criancas/' });
         }
     });
     return Row;

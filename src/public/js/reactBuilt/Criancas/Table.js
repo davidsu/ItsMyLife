@@ -10,7 +10,7 @@ define(['_', 'publishers', 'consts', 'Row', 'Headers', 'react', 'mainStore'], fu
         },
         getDefaultProps: function getDefaultProps() {
             return {
-                HEADERS: ['receipt', 'payTo', 'children', 'numOfPayments', 'firstPayment', 'payMethod', 'payValue']
+                HEADERS: ['payTo', 'children', 'numOfPayments', 'firstPayment', 'payMethod', 'payValue']
             };
         },
         componentWillMount: function componentWillMount() {
@@ -20,13 +20,17 @@ define(['_', 'publishers', 'consts', 'Row', 'Headers', 'react', 'mainStore'], fu
         },
         render: function render() {
             return React.createElement(
-                'div',
-                { className: '_table _main' },
+                'table',
+                { className: 'table table-hover table-striped table bordered' },
                 React.createElement(Headers, { HEADERS: this.props.HEADERS }),
-                _.map(mainStore.criancas.list, (function (item) {
+                React.createElement(
+                    'tbody',
+                    null,
+                    _.map(mainStore.criancas.list, (function (item) {
 
-                    return React.createElement(Row, { item: item, HEADERS: this.props.HEADERS, key: item._id });
-                }).bind(this))
+                        return React.createElement(Row, { item: item, HEADERS: this.props.HEADERS, key: item._id });
+                    }).bind(this))
+                )
             );
         }
     });

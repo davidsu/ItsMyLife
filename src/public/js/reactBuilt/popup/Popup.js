@@ -29,7 +29,8 @@ define(['publishers', 'consts', 'react'], function (publishers, consts, React) {
                         } },
                     React.createElement('embed', {
                         src: this.props.path,
-                        type: "application/pdf" })
+                        type: "application/pdf",
+                        style: { width: '100%' } })
                 )
             );
         }

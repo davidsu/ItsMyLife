@@ -28,6 +28,15 @@ module.exports = function (grunt) {
                 options: {
                     debounceDelay: 500
                 }
+            },
+            react: {
+                files: [
+                    'src/public/js/reactComponents/**/*.js'
+                ],
+                tasks: ['babel'],
+                options: {
+                    debounceDelay: 500
+                }
             }
         },
         babel:{

@@ -7,14 +7,17 @@ define(['CellFactory', 'react'], function(cellFactory, React){
             return '_row ';
         },
         render: function () {
-            return (<div className={this.getClassName()}>
+            return (<tr className={this.getClassName()} onClick={this.clicked}>
                 {
                     this.props.HEADERS.map(
                         _.curry(cellFactory)(this.props.item, this.context.router, 'popup')
                     )
                 }
 
-            </div>);
+            </tr>);
+        },
+        clicked: function(){
+            this.context.router.transitionTo('/criancas/'+this.props.item._id.toString(), {prefix:'criancas/'});
         }
     });
     return Row;

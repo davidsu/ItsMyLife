@@ -22,13 +22,13 @@ define(['publishers', 'consts', 'react'], function (publishers, consts, React) {
                         }}>
                         <embed
                             src={this.props.path}
-                            type="application/pdf"></embed>
+                            type="application/pdf"
+                            style={{width:'100%'}}></embed>
                             </div>
                     </div>);
             }
 
-        })
-        ;
+        });
     return Popup;
 })
 ;
