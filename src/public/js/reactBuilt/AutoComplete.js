@@ -9,7 +9,7 @@ define(['_', 'baseRepo', 'consts', 'react'], function (_, baseRepo, consts, Reac
             return {
                 typedLength: 1000,
                 value: '',
-                filesList: baseRepo.getFilesPath(this._filesPathReceived),
+                filesList: baseRepo.getFilesPath(this._filesPathReceived, this.props.baseDir || '/Criancas'),
                 filteredFilesList: [],
                 isDeleting: false
             };
@@ -19,7 +19,7 @@ define(['_', 'baseRepo', 'consts', 'react'], function (_, baseRepo, consts, Reac
         },
         render: function render() {
             return React.createElement('input', { ref: 'input',
-                className: 'autoCompleteInput',
+                className: this.props.className,
                 value: this.state.value,
                 onChange: this._onChange,
                 onKeyDown: this._onKeyDown,

@@ -12,6 +12,10 @@ define(['Cell', 'publishers', 'consts', 'react'], function(Cell, publishers, con
             </Cell>);
 
         }
-        return <Cell columnName={columnName} key={key}>{item[columnName]}</Cell>;
+        var value = item[columnName];
+        if(columnName.toLowerCase().indexOf('date') !== -1){
+            value = value.split('T')[0]
+        }
+        return <Cell columnName={columnName} key={key}>{value}</Cell>;
     }
 });

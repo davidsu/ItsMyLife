@@ -16,7 +16,7 @@ define(
             },
             getDefaultProps: function () {
                 return {
-                    HEADERS: ['payTo', 'children', 'numOfPayments', 'firstPayment', 'payMethod', 'payValue']
+                    HEADERS: _.difference(consts.criancas.HEADERS, ['receipt'])
                 };
             },
             componentWillMount: function () {
@@ -25,18 +25,26 @@ define(
                 }.bind(this));
             },
             render: function () {
-                return (<table className='table table-hover table-striped table bordered'>
-                    <Headers HEADERS={this.props.HEADERS}></Headers>
-                    <tbody>
-                        {_.map(
-                            mainStore.criancas.list,
-                            function (item) {
+                return (
+                    <div>
+                    <table className='table table-hover table-striped table bordered'>
+                        <Headers HEADERS={this.props.HEADERS}></Headers>
+                        <tbody>
+                            {_.map(
+                                mainStore.criancas.list,
+                                function (item) {
 
-                                return <Row item={item} HEADERS={this.props.HEADERS} key={item._id}/>
-                            }.bind(this)
-                        )}
-                    </tbody>
-                </table>);
+                                    return <Row item={item} HEADERS={this.props.HEADERS} key={item._id}/>
+                                }.bind(this)
+                            )}
+                        </tbody>
+                    </table>
+                        <button onClick={this.addEntry}>Add entry</button>
+                    </div>
+                );
+            },
+            addEntry:function(){
+                this.context.router.transitionTo(consts.router.inserts.criancas, {prefix:'criancas/'});
             }
         });
 

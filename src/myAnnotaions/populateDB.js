@@ -15,7 +15,8 @@ addItem(
         , date: new Date('July 16, 2015')
         , payMethod: 'credit card'
         , payValue: 3600
-        , firstPayment: new Date('August 7, 2015')
+        , firstPaymentDate: new Date('August 7, 2015')
+        , firstPaymentValue: 1200
     }
 );
 
@@ -29,7 +30,8 @@ addItem(
         , date: new Date('July 2, 2015')
         , payMethod: 'credit card'
         , payValue: 3700
-        , firstPayment: new Date('July 7, 2015')
+        , firstPaymentDate: new Date('July 7, 2015')
+        , firstPaymentValue: 1234
     }
 );
 
@@ -42,7 +44,8 @@ addItem(
         , date: new Date('July 24, 2015')
         , payMethod: 'credit card'
         , payValue: 355.3
-        , firstPayment: new Date('July 24, 2015')
+        , firstPaymentDate: new Date('July 24, 2015')
+        , firstPaymentValue: 355.3
     }
 );
 

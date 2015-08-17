@@ -4,11 +4,12 @@ require.config({
         _: 'lib/lodash',
         page: 'lib/page',
         reactRouter: 'lib/ReactRouter',
-        react: 'lib/react'
+        react: 'lib/react-with-addons'
     },
     map:{
         '*':{
             AutoComplete: 'reactBuilt/AutoComplete',
+            ReceiptPlaceholder: 'reactBuilt/ReceiptPlaceholder',
             main: 'reactBuilt/main/main',
             Popup: 'reactBuilt/popup/Popup',
             pubsub: 'pubsub/pubsub',
@@ -24,6 +25,9 @@ require.config({
             Cell: 'reactBuilt/Criancas/Cell',
             Headers: 'reactBuilt/Criancas/Headers',
             CellFactory: 'reactBuilt/Criancas/cellFactory'
+        },
+        'reactBuilt/config':{
+            insertCriancas: 'reactBuilt/inserts/criancas'
         }
     }
 });

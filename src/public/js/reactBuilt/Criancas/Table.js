@@ -10,7 +10,7 @@ define(['_', 'publishers', 'consts', 'Row', 'Headers', 'react', 'mainStore'], fu
         },
         getDefaultProps: function getDefaultProps() {
             return {
-                HEADERS: ['payTo', 'children', 'numOfPayments', 'firstPayment', 'payMethod', 'payValue']
+                HEADERS: _.difference(consts.criancas.HEADERS, ['receipt'])
             };
         },
         componentWillMount: function componentWillMount() {
@@ -20,18 +20,30 @@ define(['_', 'publishers', 'consts', 'Row', 'Headers', 'react', 'mainStore'], fu
         },
         render: function render() {
             return React.createElement(
-                'table',
-                { className: 'table table-hover table-striped table bordered' },
-                React.createElement(Headers, { HEADERS: this.props.HEADERS }),
+                'div',
+                null,
                 React.createElement(
-                    'tbody',
-                    null,
-                    _.map(mainStore.criancas.list, (function (item) {
+                    'table',
+                    { className: 'table table-hover table-striped table bordered' },
+                    React.createElement(Headers, { HEADERS: this.props.HEADERS }),
+                    React.createElement(
+                        'tbody',
+                        null,
+                        _.map(mainStore.criancas.list, (function (item) {
 
-                        return React.createElement(Row, { item: item, HEADERS: this.props.HEADERS, key: item._id });
-                    }).bind(this))
+                            return React.createElement(Row, { item: item, HEADERS: this.props.HEADERS, key: item._id });
+                        }).bind(this))
+                    )
+                ),
+                React.createElement(
+                    'button',
+                    { onClick: this.addEntry },
+                    'Add entry'
                 )
             );
+        },
+        addEntry: function addEntry() {
+            this.context.router.transitionTo(consts.router.inserts.criancas, { prefix: 'criancas/' });
         }
     });
 

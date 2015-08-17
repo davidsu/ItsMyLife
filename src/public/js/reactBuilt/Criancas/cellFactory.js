@@ -16,10 +16,14 @@ define(['Cell', 'publishers', 'consts', 'react'], function (Cell, publishers, co
                 )
             );
         }
+        var value = item[columnName];
+        if (columnName.toLowerCase().indexOf('date') !== -1) {
+            value = value.split('T')[0];
+        }
         return React.createElement(
             Cell,
             { columnName: columnName, key: key },
-            item[columnName]
+            value
         );
     };
 });

@@ -9,7 +9,8 @@ var schema = new mongoose.Schema({
     , date: Date
     , payMethod: String
     , payValue: Number
-    , firstPayment: Date
+    , firstPaymentDate: Date
+    , firstPaymentValue: Number
 });
 
 // Return a Tweet model based upon the defined schema
@@ -37,6 +38,7 @@ exports.create = function(req, res, next){
 };
 
 exports.getReceiptById = function(req, res, next){
+    console.log('getCriancasReceipt');
     Criancas.findOne({_id:req.params.id}, function(err, despesas){
         if(err){
             return next(err);

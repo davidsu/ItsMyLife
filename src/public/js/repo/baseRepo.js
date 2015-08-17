@@ -14,9 +14,9 @@ define(function(){
         request.send();
     }
 
-    function getFilesPath(callback){
+    function getFilesPath(callback, baseDir){
         var request = new XMLHttpRequest();
-        request.open('GET', '/filesPath');
+        request.open('GET', '/filesPath' + baseDir);
         request.onload = function () {
             var error;
             if (request.status < 200 || request.status >= 400) {
@@ -24,7 +24,7 @@ define(function(){
             }
 
 
-            callback(error, request.responseText);
+            callback(error, JSON.parse(request.responseText));
         };
         request.send();
     }

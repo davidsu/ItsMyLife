@@ -1,7 +1,11 @@
 var fs = require('fs');
 var path = require('path');
-var baseDir = path.join(process.cwd(), '../../');
+var baseDir = path.join(process.cwd(), '../');
+var _ = require('lodash-node');
 
+if(baseDir.indexOf('ItsMyLife')!==-1){
+    baseDir = path.join(baseDir, '../');
+}
 
 var walk = function (dir, done) {
     var results = [];
@@ -22,7 +26,7 @@ var walk = function (dir, done) {
                         if (!--pending) done(null, results);
                     });
                 } else {
-                    if(file.indexOf('.DS_Store') === -1) {
+                    if (file.indexOf('.DS_Store') === -1 && file.indexOf('.idea') === -1) {
                         results.push(file);
                     }
                     if (!--pending) done(null, results);
@@ -32,20 +36,28 @@ var walk = function (dir, done) {
     });
 };
 
-function getAllFilesFullPath(callback) {
-    walk(baseDir, function (err, results) {
-        if (err) throw err;
-        callback(results);
-    });
+function getAllFilesFullPath(callback, baseDirectory) {
+    walk(
+        baseDirectory || baseDir,
+        function (err, results) {
+            if (err) throw err;
+            callback(results);
+        }
+    );
 }
-function getFilesPaths(callback) {
-    getAllFilesFullPath(function(results){
-        callback(results.map(function (item) {
+function getFilesPaths(callback, baseDirectory) {
+
+    getAllFilesFullPath(
+        function (results) {
+            var res = _.chain(results)
+                .map(function (item) {
                     return item.split('Pagamentos/')[1];
-                }
-            )
-        )
-    });
+                }).compact();
+            callback(res);
+        },
+        path.join(baseDir, baseDirectory || '')
+    );
+
 }
 
 module.exports.getAllFilesFullPath = getAllFilesFullPath;
