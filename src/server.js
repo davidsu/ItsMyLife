@@ -30,7 +30,10 @@ app.route('/criancas/:id')
 
 app.route('/criancas')
     .get(Criancas.list)
-    .post(Criancas.create);
+    .post(function(req,res){
+        req.body.receipt = path.join(receiptDir.baseDir, req.body.receipt);
+        Criancas.create(req,res);
+    });
 
 app.route('/filesPath')
     .get(function (req, res) {
@@ -54,7 +57,7 @@ app.route('/filesPath/:path')
 app.route('/file')
     .get(function(req,res){
         console.log('file/:name');
-        var filePath = path.join(process.cwd(), '../', req.query.path);
+        var filePath = path.join(receiptDir.baseDir, req.query.path);
         console.log(filePath);
         if(fs.existsSync(filePath)){
             res.sendFile(filePath);
