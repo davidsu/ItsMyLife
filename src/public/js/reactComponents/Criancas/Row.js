@@ -17,7 +17,10 @@ define(['CellFactory', 'react'], function(cellFactory, React){
             </tr>);
         },
         clicked: function(){
-            this.context.router.transitionTo('/criancas/'+this.props.item._id.toString(), {prefix:'criancas/'});
+            var pdfquery = this.props.item.isPDF?'?pdf=true':'?pdf=false';
+            this.context.router.transitionTo(
+                '/criancas/'+this.props.item._id.toString()+pdfquery,
+                {prefix:'criancas/'});
         }
     });
     return Row;

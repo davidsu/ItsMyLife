@@ -12,7 +12,7 @@ define(
                 if (!this.props.src) {
                     return null;
                 }
-                var style = {width:'100%', minHeight:'600px'};
+                var style = this.props.style || {width:'100%', minHeight:'600px'};
                 if (this.props.isPDF) {
                     return (
                         <embed

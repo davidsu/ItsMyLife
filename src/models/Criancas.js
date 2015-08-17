@@ -11,6 +11,7 @@ var schema = new mongoose.Schema({
     , payValue: Number
     , firstPaymentDate: Date
     , firstPaymentValue: Number
+    , isPDF: { type:Boolean, default:false}
 });
 
 // Return a Tweet model based upon the defined schema

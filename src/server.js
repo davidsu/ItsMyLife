@@ -31,7 +31,10 @@ app.route('/criancas/:id')
 app.route('/criancas')
     .get(Criancas.list)
     .post(function(req,res){
-        req.body.receipt = path.join(receiptDir.baseDir, req.body.receipt);
+        if(req.body.receipt.indexOf(receiptDir.baseDir) === -1) {
+            req.body.receipt = path.join(receiptDir.baseDir, req.body.receipt);
+        }
+        req.body.isPDF = req.body.receipt.toLowerCase().indexOf('.pdf') !== -1;
         Criancas.create(req,res);
     });
 
